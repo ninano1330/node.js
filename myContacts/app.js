@@ -11,12 +11,11 @@ app.set('views', './views');
 app.use(express.static('./public'));
 app.use(methodOverride('_method'));
 
-app.get('/', (req, res) => {
-    res.send('Hello, Node!');
-});
-
 app.use(express.json());
 app.use(express.urlencoded({ extended : true }));
+
+app.use('/', require('./routes/loginRoutes'));
+app.use('/contacts', require('./routes/contactRoutes')); // router 미들웨어 사용
 
 // app.get('/contacts', (req, res) => {
 //     res.send('Contacts Page');
@@ -37,8 +36,6 @@ app.use(express.urlencoded({ extended : true }));
 // app.delete('/contacts/:id', (req, res) => {
 //     res.send(`delete Contact for ID : ${req.params.id}`);
 // });
-
-app.use('/contacts', require('./routes/contactRoutes')); // router 미들웨어 사용
 
 app.listen(3000, () => {
     console.log('서버 실행 중');
